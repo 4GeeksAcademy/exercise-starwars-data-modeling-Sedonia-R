@@ -7,46 +7,21 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-# class Person(Base):
-#     __tablename__ = 'person'
-#     # Here we define columns for the table person
-#     # Notice that each column is also a normal Python instance attribute.
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String(250), nullable=False)
-
-# class Address(Base):
-#     __tablename__ = 'address'
-#     # Here we define columns for the table address.
-#     # Notice that each column is also a normal Python instance attribute.
-#     id = Column(Integer, primary_key=True)
-#     street_name = Column(String(250))
-#     street_number = Column(String(250))
-#     post_code = Column(String(250), nullable=False)
-#     person_id = Column(Integer, ForeignKey('person.id'))
-#     person = relationship(Person)
-
-#     def to_dict(self):
-#         return {}
-    
 class User(Base):
     __tablename__ = 'user'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_name = Column(String(250), nullable=False)
+    user_name = Column(String(50), nullable=False)
     email = Column(String(250), nullable=False)
 
-# class Favorites(Base):
-#     __tablename__ = "favorites"
-#     id = Column(Integer, primary_key=True)
-#     user_id = (Integer, ForeignKey('user.id'))
-#     user = relationship(User)
-#     planets_id = (Integer, ForeignKey('planets.id'))
-#     characters_id = (Integer, ForeignKey('characters.id'))
-#     vehicles_id = (Integer, ForeignKey('vehicles.id'))
+class Favorites(Base):
+    __tablename__ = 'favorites'
+    id = Column(Integer, primary_key=True)
+    type = Column(String(250), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
-#     def to_dict(self):
-#         return {}
+    def to_dict(self):
+        return {}
     
 class Planets(Base):
     __tablename__ = 'planets'
@@ -60,8 +35,9 @@ class Planets(Base):
     population = Column(Integer, nullable=False)
     gravity = Column(String(250), nullable=False)
     climate = Column(String(250), nullable=False)
+    favorites_id = Column(Integer, ForeignKey('favorites.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    favorites = relationship(Favorites)
 
     def to_dict(self):
         return {}
@@ -78,8 +54,9 @@ class Characters(Base):
     height = Column(Integer, nullable=False)
     mass = Column(Integer, nullable=False)
     gender = Column(String(250), nullable=False)
+    favorites_id = Column(Integer, ForeignKey('favorites.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    favorites = relationship(Favorites)
 
     def to_dict(self):
         return {}
@@ -99,15 +76,12 @@ class Vehicles(Base):
     max_atmosphering_speed = Column(Integer, nullable=False)
     cargo_capacity = Column(Integer, nullable=False)
     consumables = Column(String(250), nullable=False)
+    favorites_id = Column(Integer, ForeignKey('favorites.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    favorites = relationship(Favorites)
 
     def to_dict(self):
         return {}
-    
-class Favorites(Base):
-    __tablename__ = 'favorites'
-    id = Column(Integer, primary_key=True) 
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')

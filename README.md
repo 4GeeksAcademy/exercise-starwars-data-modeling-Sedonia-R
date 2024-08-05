@@ -23,7 +23,7 @@ We are going to be creating the Entity Relationship Diagram for your StarWars Bl
 
 3. Generate the diagram as many times as you need `$ python src/models.py`
 
-4. Open the file `diagram.png` to check out your UML diagram!
+4. Open the file `diagram.png` to check out your UML diagram! 
 
 
 ## 📝 Instructions
