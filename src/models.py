@@ -37,6 +37,7 @@ class Planets(Base):
     climate = Column(String(250), nullable=False)
     favorites_id = Column(Integer, ForeignKey('favorites.id'))
     favorites = relationship(Favorites)
+    user_id = Column(Integer, ForeignKey('user.id'))
 
     def to_dict(self):
         return {}
@@ -55,6 +56,7 @@ class Characters(Base):
     gender = Column(String(250), nullable=False)
     favorites_id = Column(Integer, ForeignKey('favorites.id'))
     favorites = relationship(Favorites)
+    user_id = Column(Integer, ForeignKey('user.id'))
 
     def to_dict(self):
         return {}
@@ -76,6 +78,7 @@ class Vehicles(Base):
     consumables = Column(String(250), nullable=False)
     favorites_id = Column(Integer, ForeignKey('favorites.id'))
     favorites = relationship(Favorites)
+    user_id = Column(Integer, ForeignKey('user.id'))
 
     def to_dict(self):
         return {}
